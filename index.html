@@ -1,0 +1,298 @@
+<!DOCTYPE html5>
+<html lang="en">
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<script src="jquery.min.js"></script>
+	<link rel="stylesheet" href="cdn/bs370.css" />
+	<script src="cdn/bs370.js"></script>
+	<link rel="stylesheet" href="cdn/fa-4.7.0.css" />
+	<style>
+		[hidden] {
+			display: none !important;
+		}
+
+		input.sbrt[type="text"] {
+			border: none;
+			border-bottom: solid 2px #0077ff;
+			outline: none;
+		}
+
+		input.sbrt[type="text"]:focus {
+			border-color: red;
+		}
+
+		.countrySelector {
+			background-color: #2e2e2e;
+			width: 100%;
+			color: white;
+		}
+
+		.descCont {
+			overflow: hidden;
+			width: 0;
+			height: 0;
+		}
+
+		.pwctn,
+		.countryPR {
+			height: 0;
+			overflow: hidden;
+		}
+
+		.descCont textarea {
+			height: 100%;
+			width: 100%;
+		}
+
+		.irstt2 {
+			color: red;
+			font-family: monospace;
+			font-weight: bolder;
+			text-transform: lowercase;
+		}
+		.pfp{
+			height: 50px;
+			width: 50px;
+			object-fit: cover;;
+		}
+		.pfpc{
+			z-index: 9;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-default" role="navigation">
+		<!-- Brand and toggle get grouped for better mobile display -->
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+				<span class="sr-only">Toggle navigation</span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand" href="#">MMDArchsive</a>
+		</div>
+		
+		<!-- Collect the nav links, forms, and other content for toggling -->
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/">Home</a></li>
+				<li><a href="/forum">Forum</a></li>
+			</ul>
+			<form class="navbar-form navbar-left" role="search" method="GET" action="#">
+				<div class="input-group">
+					<input type="text" class="form-control" id="exampleInputAmount" placeholder="Search..."
+					name="query" />
+					<span class="input-group-btn">
+						<button type="submit" class="btn btn-success">Search</button>
+					</span>
+				</div>
+			</form>
+			<div class="pfpc">
+				<img src="シエラ - 【The Angel's Message】 (69317501) .jpg" class="pfp"alt="">
+			</div>
+		</div>
+		<!-- /.navbar-collapse -->
+	</nav>
+	<div style="font-size: 0">
+		<img src="63866356_p0.png" alt="" style="height: 25vw; width: 25%; padding:
+				5px; object-fit: cover" />
+	</div>
+	<ul class="pager">
+		<li class="disabled"><a>&lt;</a></li>
+		<li>41</li>
+		<li><a href="2">&gt;</a></li>
+	</ul>
+	<a class="btn btn-primary" data-toggle="modal" href="#uploadFileModal">Add Post</a>
+	<div class="modal sfade" id="uploadFileModal">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<form action="#" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+							&times;
+						</button>
+						<h4 class="modal-title">Upload</h4>
+					</div>
+					<div class="modal-body">
+						<!--File-->
+						<div>
+							File:
+							<label class="btn btn-default flLabel" for="cf"> Browse </label>
+							<input type="file" name="files" hidden required id="cf" min="2" multiple />
+							<span class="irstt2">(Required)</span>
+						</div>
+						<!--Uses Password-->
+						<div>
+							<label for="checkbox1">
+								<input type="checkbox" name="checkbox1" id="checkbox1" />
+								Use Password
+							</label>
+						</div>
+						<div class="pwctn">
+							<input type="text" name="" placeholder="Password" id="passwordBox" class="sbrt" />
+						</div>
+
+						<div>
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" value="" id="activeDesc" />
+									Description
+								</label>
+							</div>
+							<div class="descCont">
+								<textarea name="" id="descriptionBox" cols="30" rows="10"
+									maxlength="15000"></textarea>
+							</div>
+						</div>
+						<!--Privacy Options-->
+						<div>
+							<div class="radio">
+								<span style="font-size: 22px; font-weight: bolder">Privacy Options</span>
+								<div>
+									<fieldset>
+										<div>
+											<select name="privacy" id="">
+												<option value="0">Public</option>
+												<option value="1">Unlisted</option>
+												<option value="2">Private</option>
+											</select>
+											<div style="width: fit-content" class="countryPR">
+												<label for="country" style="padding: 0">Country</label>
+												<input type="text" name="" id="country" class="sbrt"
+													placeholder="Search Country" value="日本 (Japan)" />
+												<div class="countrySelector"></div>
+											</div>
+										</div>
+									</fieldset>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">
+							Close
+						</button>
+						<input type="submit" value="Submit" class="btn btn-primary" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div id="cs">123</div>
+</body>
+<!--upload.min.js | upload.js-->
+<script>
+	String.prototype.splice = function (i, r, s) {
+		s = s == undefined ? "" : s;
+		return this.slice(0, i) + s + this.slice(i + Math.abs(r));
+	};
+	function IsImage(r) {
+		for (var i = 0; i < t.length; i++) {
+			if (r.endsWith(t[i])) {
+				return true;
+			}
+		}
+		return false;
+	}
+	$(document).ready((e) => {
+		//$("#uploadFileModal").modal();
+		$("#cf").on("change", (e) => {
+			var r = "Browse";
+			var fn = "";
+			size = 0;
+			var fl = e.target.files;
+			kv = $(".irstt2");
+			if (fl.length <= 0) {
+				kv.css("display", "inline");
+				$(".flLabel").text("Browse").removeAttr("title");
+				return;
+			}
+			//requires atleast 1 image & 1 container
+			kv.css("display", "none");
+			size += fl[0].size;
+			fn += fl[0].name + ",";
+			for (let k = 1; k < fl.length; k++) {
+				fn += fl[k].name + ", ";
+				size += fl[k].size;
+			}
+			r += ` (${fl.length} [${size / 1000}kb])`;
+			$(".flLabel").text(r).attr("title", fn);
+		});
+		$("#RegionLock").on("click", (e) => {
+			var u = $(".countryPR");
+			if ($("#RegionLock").is(":checked")) {
+				u.css("display", "block").animate({
+					height: 25,
+				});
+			} else {
+				u.animate(
+					{
+						height: 0,
+					},
+					null,
+					(e) => {
+						u.css("display", "none");
+					}
+				);
+			}
+		});
+		$("#checkbox1").on("click", (e) => {
+			var u = $(".pwctn");
+			if ($("#checkbox1").is(":checked")) {
+				u.css("display", "block").animate({
+					height: 25,
+				});
+			} else {
+				u.animate(
+					{
+						height: 0,
+					},
+					null,
+					(e) => u.css("display", "none")
+				);
+			}
+		});
+		$("#activeDesc").on("click ", (e) => {
+			var u = $(".descCont");
+			if ($("#activeDesc").is(":checked")) {
+				u.animate({
+					opacity: 1,
+					width: "100%",
+					height: 200,
+				});
+			} else {
+				u.animate({
+					width: 0,
+					height: 0,
+					opacity: 1,
+				});
+			}
+		});
+		$("#descriptionBox").on("keydown", (e) => {
+			var i = e.target.selectionStart + 1;
+			if (e.keyCode == 9) {
+				e.target.value = e.target.value.splice(
+					e.target.selectionStart,
+					0,
+					"\t"
+				);
+				e.preventDefault();
+				e.target.selectionStart = i;
+				e.target.selectionEnd = i;
+			}
+			if (e.keyCode == 190 && e.shiftKey) {
+				//Emotes to be added
+				//e.preventDefault();
+			}
+			if (e.keyCode == 13 && e.ctrlKey) {
+				e.target.disabled = true;
+			}
+		});
+	});
+</script>
+
+</html>
