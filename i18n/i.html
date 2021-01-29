@@ -1,0 +1,18 @@
+<script>
+	window.onload = function(){
+		setInterval(() => {
+			var date = new Date();
+			var now = date.getMilliseconds();
+			document.querySelector("#r").innerHTML = "Date: "+date.getDate()+"."+(date.getMonth()+1)+"."+date.getFullYear()+"<br>Time Left: 0" +(24-date.getHours())+":"+(60-date.getMinutes()) + ":"+(60-date.getSeconds())+":"+(1000-date.getMilliseconds());
+			if(date.getHours() == 23 && date.getMinutes() == 59 && date.getSeconds() > 54){
+				location.href = "https://youtu.be/IAlFREtqPEc";
+			}
+		}, 1000/60);
+	}
+</script>
+<div id="r"></div>
+<style>
+	body{
+		font-family: monospace;
+	}
+</style>
